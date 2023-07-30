@@ -36,7 +36,7 @@ TransferID* OutgoingTransferRegistry::accessOrCreate(const OutgoingTransferRegis
         {
             return UAVCAN_NULLPTR;
         }
-        UAVCAN_TRACE("OutgoingTransferRegistry", "Created %s", key.toString().c_str());
+        //UAVCAN_TRACE("OutgoingTransferRegistry", "Created %s", key.toString().c_str());
     }
     p->deadline = new_deadline;
     return &p->tid;

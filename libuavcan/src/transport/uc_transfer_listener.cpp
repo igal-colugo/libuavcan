@@ -87,7 +87,7 @@ bool TransferListener::TimedOutReceiverPredicate::operator()(const TransferBuffe
 {
     if (value.isTimedOut(ts_))
     {
-        UAVCAN_TRACE("TransferListener", "Timed out receiver: %s", key.toString().c_str());
+        //UAVCAN_TRACE("TransferListener", "Timed out receiver: %s", key.toString().c_str());
         /*
          * TransferReceivers do not own their buffers - this helps the Map<> container to copy them
          * around quickly and safely (using default assignment operator). Downside is that we need to
@@ -155,12 +155,12 @@ void TransferListener::handleReception(TransferReceiver& receiver, const RxFrame
         const ITransferBuffer* tbb = tba.access();
         if (tbb == UAVCAN_NULLPTR)
         {
-            UAVCAN_TRACE("TransferListener", "Buffer access failure, last frame: %s", frame.toString().c_str());
+            //UAVCAN_TRACE("TransferListener", "Buffer access failure, last frame: %s", frame.toString().c_str());
             break;
         }
         if (!checkPayloadCrc(receiver.getLastTransferCrc(), *tbb))
         {
-            UAVCAN_TRACE("TransferListener", "CRC error, last frame: %s", frame.toString().c_str());
+            //UAVCAN_TRACE("TransferListener", "CRC error, last frame: %s", frame.toString().c_str());
             break;
         }
         MultiFrameIncomingTransfer it(receiver.getLastTransferTimestampMonotonic(),
@@ -217,7 +217,7 @@ void TransferListener::handleFrame(const RxFrame& frame)
             recv = receivers_.insert(key, new_recv);
             if (recv == UAVCAN_NULLPTR)
             {
-                UAVCAN_TRACE("TransferListener", "Receiver registration failed; frame %s", frame.toString().c_str());
+                //UAVCAN_TRACE("TransferListener", "Receiver registration failed; frame %s", frame.toString().c_str());
                 return;
             }
         }
@@ -233,7 +233,7 @@ void TransferListener::handleFrame(const RxFrame& frame)
     }
     else
     {
-        UAVCAN_TRACE("TransferListener", "Invalid frame: %s", frame.toString().c_str()); // Invalid frame
+        //UAVCAN_TRACE("TransferListener", "Invalid frame: %s", frame.toString().c_str()); // Invalid frame
     }
 }
 

@@ -33,7 +33,7 @@ int TransferSender::send(const uint8_t* payload, unsigned payload_len, Monotonic
     frame.setPriority(priority_);
     frame.setStartOfTransfer(true);
 
-    UAVCAN_TRACE("TransferSender", "%s", frame.toString().c_str());
+    //UAVCAN_TRACE("TransferSender", "%s", frame.toString().c_str());
 
     /*
      * Checking if we're allowed to send.

@@ -326,7 +326,7 @@ ITransferBuffer* TransferBufferManager::create(const TransferBufferManagerKey& k
 
     buffers_.insert(tbme);
 
-    UAVCAN_TRACE("TransferBufferManager", "Buffer created [num=%u], %s", getNumBuffers(), key.toString().c_str());
+    //UAVCAN_TRACE("TransferBufferManager", "Buffer created [num=%u], %s", getNumBuffers(), key.toString().c_str());
 
     if (tbme != UAVCAN_NULLPTR)
     {
@@ -343,7 +343,7 @@ void TransferBufferManager::remove(const TransferBufferManagerKey& key)
     TransferBufferManagerEntry* dyn = findFirst(key);
     if (dyn != UAVCAN_NULLPTR)
     {
-        UAVCAN_TRACE("TransferBufferManager", "Buffer deleted, %s", key.toString().c_str());
+        //UAVCAN_TRACE("TransferBufferManager", "Buffer deleted, %s", key.toString().c_str());
         buffers_.remove(dyn);
         TransferBufferManagerEntry::destroy(dyn, allocator_);
     }

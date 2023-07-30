@@ -62,31 +62,31 @@ bool TransferReceiver::validate(const RxFrame& frame) const
     }
     if (frame.isStartOfTransfer() && !frame.isEndOfTransfer() && (frame.getPayloadLen() < TransferCRC::NumBytes))
     {
-        UAVCAN_TRACE("TransferReceiver", "CRC expected, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "CRC expected, %s", frame.toString().c_str());
         registerError();
         return false;
     }
     if (frame.isStartOfTransfer() && frame.getToggle())
     {
-        UAVCAN_TRACE("TransferReceiver", "Toggle bit is not cleared, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Toggle bit is not cleared, %s", frame.toString().c_str());
         registerError();
         return false;
     }
     if (frame.isStartOfTransfer() && isMidTransfer())
     {
-        UAVCAN_TRACE("TransferReceiver", "Unexpected start of transfer, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Unexpected start of transfer, %s", frame.toString().c_str());
         registerError();
     }
     if (frame.getToggle() != next_toggle_)
     {
-        UAVCAN_TRACE("TransferReceiver", "Unexpected toggle bit (not %i), %s",
-                     int(next_toggle_), frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Unexpected toggle bit (not %i), %s",
+                     //int(next_toggle_), frame.toString().c_str());
         registerError();
         return false;
     }
     if (frame.getTransferID() != tid_)
     {
-        UAVCAN_TRACE("TransferReceiver", "Unexpected TID (current %i), %s", tid_.get(), frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Unexpected TID (current %i), %s", tid_.get(), frame.toString().c_str());
         registerError();
         return false;
     }
@@ -154,14 +154,14 @@ TransferReceiver::ResultCode TransferReceiver::receive(const RxFrame& frame, Tra
     }
     if (buf == UAVCAN_NULLPTR)
     {
-        UAVCAN_TRACE("TransferReceiver", "Failed to access the buffer, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Failed to access the buffer, %s", frame.toString().c_str());
         prepareForNextTransfer();
         registerError();
         return ResultNotComplete;
     }
     if (!writePayload(frame, *buf))
     {
-        UAVCAN_TRACE("TransferReceiver", "Payload write failed, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Payload write failed, %s", frame.toString().c_str());
         tba.remove();
         prepareForNextTransfer();
         registerError();
@@ -189,7 +189,7 @@ TransferReceiver::ResultCode TransferReceiver::addFrame(const RxFrame& frame, Tr
         (frame.getMonotonicTimestamp() < prev_transfer_ts_) ||
         (frame.getMonotonicTimestamp() < this_transfer_ts_))
     {
-        UAVCAN_TRACE("TransferReceiver", "Invalid frame, %s", frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Invalid frame, %s", frame.toString().c_str());
         return ResultNotComplete;
     }
 
@@ -214,10 +214,10 @@ TransferReceiver::ResultCode TransferReceiver::addFrame(const RxFrame& frame, Tr
         {
             registerError();
         }
-        UAVCAN_TRACE("TransferReceiver", "Restart [ni=%d, isa=%d, tt=%d, si=%d, ff=%d, nwtid=%d, nptid=%d, tid=%d], %s",
-                     int(not_initialized), int(iface_switch_allowed), int(tid_timed_out), int(same_iface),
-                     int(first_frame), int(non_wrapped_tid), int(not_previous_tid), int(tid_.get()),
-                     frame.toString().c_str());
+        //UAVCAN_TRACE("TransferReceiver", "Restart [ni=%d, isa=%d, tt=%d, si=%d, ff=%d, nwtid=%d, nptid=%d, tid=%d], %s",
+                     //int(not_initialized), int(iface_switch_allowed), int(tid_timed_out), int(same_iface),
+                     //int(first_frame), int(non_wrapped_tid), int(not_previous_tid), int(tid_.get()),
+                     //frame.toString().c_str());
         tba.remove();
         iface_index_ = frame.getIfaceIndex() & IfaceIndexMask;
         tid_ = frame.getTransferID();

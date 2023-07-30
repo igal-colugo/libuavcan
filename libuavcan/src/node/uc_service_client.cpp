@@ -52,10 +52,10 @@ int ServiceClientBase::prepareToCall(INode& node,
         data_type_descriptor_ = GlobalDataTypeRegistry::instance().find(DataTypeKindService, dtname);
         if (data_type_descriptor_ == UAVCAN_NULLPTR)
         {
-            UAVCAN_TRACE("ServiceClient", "Type [%s] is not registered", dtname);
+            //UAVCAN_TRACE("ServiceClient", "Type [%s] is not registered", dtname);
             return -ErrUnknownDataType;
         }
-        UAVCAN_TRACE("ServiceClient", "Data type descriptor inited: %s", data_type_descriptor_->toString().c_str());
+        //UAVCAN_TRACE("ServiceClient", "Data type descriptor inited: %s", data_type_descriptor_->toString().c_str());
     }
     UAVCAN_ASSERT(data_type_descriptor_ != UAVCAN_NULLPTR);
 
@@ -69,7 +69,7 @@ int ServiceClientBase::prepareToCall(INode& node,
         node.getDispatcher().getOutgoingTransferRegistry().accessOrCreate(otr_key, otr_deadline);
     if (!otr_tid)
     {
-        UAVCAN_TRACE("ServiceClient", "OTR access failure, dtd=%s", data_type_descriptor_->toString().c_str());
+        //UAVCAN_TRACE("ServiceClient", "OTR access failure, dtd=%s", data_type_descriptor_->toString().c_str());
         return -ErrMemory;
     }
     out_call_id.transfer_id = *otr_tid;
